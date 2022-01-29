@@ -13,9 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
-/**
- * Created by jt on 6/19/17.
- */
 @Slf4j
 @Controller
 public class RecipeController {
@@ -30,8 +27,7 @@ public class RecipeController {
     @GetMapping("/recipe/{id}/show")
     public String showById(@PathVariable String id, Model model){
 
-        model.addAttribute("recipe", recipeService.findById(id));
-
+        model.addAttribute("recipe", recipeService.findById(Long.valueOf(id)));
         return "recipe/show";
     }
 
@@ -44,7 +40,7 @@ public class RecipeController {
 
     @GetMapping("recipe/{id}/update")
     public String updateRecipe(@PathVariable String id, Model model){
-        model.addAttribute("recipe", recipeService.findCommandById(id));
+        model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(id)));
         return RECIPE_RECIPEFORM_URL;
     }
 
@@ -70,13 +66,13 @@ public class RecipeController {
 
         log.debug("Deleting id: " + id);
 
-        recipeService.deleteById(id);
+        recipeService.deleteById(Long.valueOf(id));
         return "redirect:/";
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
-    public ModelAndView handleNotFound(Exception exception){
+    public ModelAndView handleNotFound(Exception exception) {
 
         log.error("Handling not found exception");
         log.error(exception.getMessage());
