@@ -9,6 +9,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+/**
+ * Created by jt on 6/28/17.
+ */
 @Service
 public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
 
@@ -24,7 +27,7 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
     public Set<UnitOfMeasureCommand> listAllUoms() {
 
         return StreamSupport.stream(unitOfMeasureRepository.findAll()
-                        .spliterator(), false)
+                .spliterator(), false)
                 .map(unitOfMeasureToUnitOfMeasureCommand::convert)
                 .collect(Collectors.toSet());
     }

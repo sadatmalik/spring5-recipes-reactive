@@ -14,6 +14,9 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * Created by jt on 6/13/17.
+ */
 @Slf4j
 @Service
 public class RecipeServiceImpl implements RecipeService {
@@ -22,9 +25,7 @@ public class RecipeServiceImpl implements RecipeService {
     private final RecipeCommandToRecipe recipeCommandToRecipe;
     private final RecipeToRecipeCommand recipeToRecipeCommand;
 
-    public RecipeServiceImpl(RecipeRepository recipeRepository,
-                             RecipeCommandToRecipe recipeCommandToRecipe,
-                             RecipeToRecipeCommand recipeToRecipeCommand) {
+    public RecipeServiceImpl(RecipeRepository recipeRepository, RecipeCommandToRecipe recipeCommandToRecipe, RecipeToRecipeCommand recipeToRecipeCommand) {
         this.recipeRepository = recipeRepository;
         this.recipeCommandToRecipe = recipeCommandToRecipe;
         this.recipeToRecipeCommand = recipeToRecipeCommand;
@@ -32,7 +33,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Set<Recipe> getRecipes() {
-        log.debug("I'm in the recipe service!");
+        log.debug("I'm in the service");
 
         Set<Recipe> recipeSet = new HashSet<>();
         recipeRepository.findAll().iterator().forEachRemaining(recipeSet::add);
@@ -40,12 +41,12 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public Recipe findById(Long id) {
+    public Recipe findById(String id) {
 
         Optional<Recipe> recipeOptional = recipeRepository.findById(id);
 
         if (!recipeOptional.isPresent()) {
-            throw new NotFoundException("Recipe Not Found for ID value: " + id);
+            throw new NotFoundException("Recipe Not Found. For ID value: " + id );
         }
 
         return recipeOptional.get();
@@ -53,8 +54,8 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     @Transactional
-    public RecipeCommand findCommandById(Long l) {
-        return recipeToRecipeCommand.convert(findById(l));
+    public RecipeCommand findCommandById(String id) {
+        return recipeToRecipeCommand.convert(findById(id));
     }
 
     @Override
@@ -68,7 +69,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public void deleteById(Long idToDelete) {
+    public void deleteById(String idToDelete) {
         recipeRepository.deleteById(idToDelete);
     }
 }

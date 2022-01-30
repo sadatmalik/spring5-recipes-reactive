@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RecipesApplication {
+public class Spring5MongoRecipeAppApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RecipesApplication.class, args);
+		SpringApplication.run(Spring5MongoRecipeAppApplication.class, args);
 	}
 }
